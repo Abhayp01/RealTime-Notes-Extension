@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>📝 Super Notes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>📝 Super Notes</h1>
+
+    <div class="top-controls">
+      <label class="switch">
+        <input type="checkbox" id="toggle">
+        <span class="slider round"></span>
+      </label>
+      <span class="toggle-label">Enable</span>
+    </div>
+
+    <input type="text" id="search" placeholder="🔍 Search notes...">
+
+    <div class="notes-box">
+      <ul id="notesList"></ul>
+    </div>
+
+    <div class="buttons">
+      <button id="downloadTxt">⬇️ Export .txt</button>
+      <button id="downloadJson">📦 Export .json</button>
+      <button id="clear" class="danger">🗑️ Clear All</button>
+    </div>
+
+    <div class="storage-toggle">
+      <label>
+        <input type="checkbox" id="syncToggle"> Sync Across Devices
+      </label>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

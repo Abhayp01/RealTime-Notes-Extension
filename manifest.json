@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Super Notes Collector",
+  "version": "2.0",
+  "description": "Select sentences from the web and save them as stylish notes with search, favorites, sync, and export.",
+  "permissions": ["storage", "contextMenus", "scripting", "activeTab", "downloads", "clipboardWrite"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Super Notes"
+  },
+  "commands": {
+    "open_notes": {
+      "suggested_key": {
+        "default": "Alt+N"
+      },
+      "description": "Open Notes Popup"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}
