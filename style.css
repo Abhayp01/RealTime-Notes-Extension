@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --bg-gradient: linear-gradient(to right, #4facfe 0%, #1c89ea 100%);
   --glass-bg: rgba(255, 255, 255, 0.7);
   --glass-border: rgba(255, 255, 255, 0.5);
   --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
@@ -196,13 +196,81 @@ textarea:focus {
   transform: scale(1.1);
 }
 
+/* Expanding Search */
+.search-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+  /* More space */
+  position: relative;
+  height: 40px;
+}
+
+.search-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  pointer-events: none;
+  font-size: 1.2rem;
+  transition: opacity 0.3s;
+}
+
+#search {
+  width: 45px;
+  /* Collapsed width */
+  padding: 10px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.8);
+  font-family: inherit;
+  font-size: 0.95rem;
+  outline: none;
+  transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.2s, background 0.2s, padding 0.2s;
+  cursor: pointer;
+  color: transparent;
+  /* Hide text when collapsed */
+  position: absolute;
+  right: 0;
+}
+
+#search::placeholder {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.search-container:hover #search,
+#search:focus,
+#search:not(:placeholder-shown) {
+  width: 100%;
+  color: var(--text-main);
+  background: white;
+  border-color: var(--accent);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  cursor: text;
+  padding-right: 40px;
+  /* Make room for icon */
+}
+
+.search-container:hover #search::placeholder,
+#search:focus::placeholder {
+  opacity: 1;
+}
+
+.search-container:hover .search-icon,
+#search:focus+.search-icon {
+  opacity: 0.8;
+}
+
 /* Notes List */
 .notes-container {
   flex: 1;
   overflow-y: auto;
   margin-bottom: 16px;
-  padding-right: 4px;
+  padding-right: 6px;
   /* Space for scrollbar */
+  padding-left: 2px;
 }
 
 /* Custom Scrollbar */
@@ -238,24 +306,30 @@ ul {
 }
 
 li.note-item {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 12px;
-  padding: 12px;
-  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+  /* More rounded */
+  padding: 16px;
+  /* More padding */
+  margin-bottom: 14px;
+  /* More spacing between notes */
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  transition: transform 0.2s, box-shadow 0.2s;
+  gap: 12px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+  cursor: default;
 }
 
 li.note-item:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.95);
+  z-index: 5;
 }
 
 /* Note Content with Side Color Bar */
@@ -265,23 +339,45 @@ li.note-item::before {
   left: 0;
   top: 0;
   bottom: 0;
-  width: 4px;
+  width: 6px;
+  /* Thicker accent */
   background: var(--accent);
-  /* Default, overridden by JS */
 }
 
 .note-content {
-  font-size: 0.95rem;
-  line-height: 1.4;
+  font-size: 1rem;
+  line-height: 1.5;
   color: var(--text-main);
   outline: none;
-  min-height: 20px;
-  /* Editable area needs height even if empty */
+  min-height: 24px;
+
+  /* Collapsible Logic */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /* Show only 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: max-height 0.3s;
+}
+
+/* Expanded State */
+li.note-item.expanded .note-content {
+  -webkit-line-clamp: unset;
+  display: block;
+  overflow: visible;
 }
 
 .note-content:focus {
+  /* When editing, behave like expanded */
+  -webkit-line-clamp: unset;
+  display: block;
   background: rgba(0, 0, 0, 0.03);
   border-radius: 4px;
+  padding: 4px;
+  margin: -4px;
+  /* Offset padding */
+  cursor: text;
 }
 
 .note-footer {
@@ -397,5 +493,17 @@ li.note-item::before {
 
   .icon-btn:hover {
     background: rgba(255, 255, 255, 0.1);
+  }
+
+  #search {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: transparent;
+  }
+
+  .search-container:hover #search,
+  #search:focus {
+    background: rgba(30, 30, 46, 0.9);
+    color: white;
   }
 }

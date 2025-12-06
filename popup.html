@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Super Notes</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <div class="container">
     <header>
@@ -34,7 +36,10 @@
       </div>
     </div>
 
-    <input type="text" id="search" placeholder="🔍 Search notes or #tags...">
+    <div class="search-container">
+      <div class="search-icon">🔍</div>
+      <input type="text" id="search" placeholder="Search notes..." autocomplete="off">
+    </div>
 
     <div class="notes-container">
       <div id="emptyState" class="empty-state" style="display: none;">
@@ -47,9 +52,10 @@
     <div class="footer-controls">
       <button id="downloadTxt" class="secondary-btn">⬇️ Export Txt</button>
       <button id="downloadJson" class="secondary-btn">📦 JSON</button>
-      <button id="clear" class="secondary-btn" style="color: var(--danger); border-color: rgba(239,68,68,0.3)">🗑️ Clear</button>
+      <button id="clear" class="secondary-btn" style="color: var(--danger); border-color: rgba(239,68,68,0.3)">🗑️
+        Clear</button>
     </div>
-    
+
     <div style="text-align: center; margin-top: 8px; font-size: 0.75rem;">
       <label style="cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
         <input type="checkbox" id="syncToggle"> Sync Across Devices
@@ -59,4 +65,5 @@
 
   <script src="popup.js"></script>
 </body>
+
 </html>

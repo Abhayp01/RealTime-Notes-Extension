@@ -99,14 +99,28 @@ function render() {
     `;
 
     // Event Listeners for Item
+
+    // Toggle Collapse on click (excluding content/buttons)
+    li.addEventListener("click", (e) => {
+      // If clicking outside content and buttons, toggle expand
+      if (!e.target.closest('.note-content') && !e.target.closest('button')) {
+        li.classList.toggle('expanded');
+      }
+    });
+
     const contentDiv = li.querySelector(".note-content");
+
+    // If clicking content while collapsed, expand it
+    contentDiv.addEventListener("focus", () => {
+      li.classList.add('expanded');
+    });
 
     // Inline Edit Save on Blur
     contentDiv.addEventListener("blur", () => {
       const newText = contentDiv.innerText.trim();
       if (newText && newText !== note.text) {
         note.text = newText;
-        note.timestamp = Date.now(); // Update timestamp on edit? Optional. Let's keep original for now.
+        note.timestamp = Date.now();
         saveNotes();
       }
     });
