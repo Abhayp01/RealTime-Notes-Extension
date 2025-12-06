@@ -20,6 +20,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
       text: info.selectionText,
       url: tab.url,
       favorite: false,
+      color: "#6C63FF", // Default Purple
       timestamp: Date.now()
     };
 

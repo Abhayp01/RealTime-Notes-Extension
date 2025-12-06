@@ -3,35 +3,55 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>📝 Super Notes</title>
+  <title>Super Notes</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <h1>📝 Super Notes</h1>
+    <header>
+      <h1>Super Notes</h1>
+      <div class="top-controls">
+        <label class="switch" title="Enable Extension">
+          <input type="checkbox" id="toggle">
+          <span class="slider"></span>
+        </label>
+        <button id="settingsBtn" class="icon-btn" title="Settings (Coming Soon)">⚙️</button>
+      </div>
+    </header>
 
-    <div class="top-controls">
-      <label class="switch">
-        <input type="checkbox" id="toggle">
-        <span class="slider round"></span>
-      </label>
-      <span class="toggle-label">Enable</span>
+    <!-- New Note Input -->
+    <div class="input-area">
+      <div class="color-tags" id="colorSelector">
+        <div class="color-option selected" data-color="#6C63FF" style="background: #6C63FF;" title="Purple"></div>
+        <div class="color-option" data-color="#10b981" style="background: #10b981;" title="Green"></div>
+        <div class="color-option" data-color="#ef4444" style="background: #ef4444;" title="Red"></div>
+        <div class="color-option" data-color="#f59e0b" style="background: #f59e0b;" title="Orange"></div>
+        <div class="color-option" data-color="#3b82f6" style="background: #3b82f6;" title="Blue"></div>
+      </div>
+      <div class="input-row">
+        <input type="text" id="newNoteInput" placeholder="✍️ Type a note..." autocomplete="off">
+        <button id="addNoteBtn" class="add-btn" title="Add Note">+</button>
+      </div>
     </div>
 
-    <input type="text" id="search" placeholder="🔍 Search notes...">
+    <input type="text" id="search" placeholder="🔍 Search notes or #tags...">
 
-    <div class="notes-box">
+    <div class="notes-container">
+      <div id="emptyState" class="empty-state" style="display: none;">
+        <p>No notes found.</p>
+        <p>Select text on a page or type above!</p>
+      </div>
       <ul id="notesList"></ul>
     </div>
 
-    <div class="buttons">
-      <button id="downloadTxt">⬇️ Export .txt</button>
-      <button id="downloadJson">📦 Export .json</button>
-      <button id="clear" class="danger">🗑️ Clear All</button>
+    <div class="footer-controls">
+      <button id="downloadTxt" class="secondary-btn">⬇️ Export Txt</button>
+      <button id="downloadJson" class="secondary-btn">📦 JSON</button>
+      <button id="clear" class="secondary-btn" style="color: var(--danger); border-color: rgba(239,68,68,0.3)">🗑️ Clear</button>
     </div>
-
-    <div class="storage-toggle">
-      <label>
+    
+    <div style="text-align: center; margin-top: 8px; font-size: 0.75rem;">
+      <label style="cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;">
         <input type="checkbox" id="syncToggle"> Sync Across Devices
       </label>
     </div>
